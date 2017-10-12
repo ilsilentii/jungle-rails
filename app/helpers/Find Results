@@ -1,0 +1,306 @@
+Searching 40 files for "routes"
+
+0 matches
+
+Searching 40 files for "category"
+
+/home/travis/lighthouse/jungle_rails/app/controllers/admin/categories_controller.rb:
+    2
+    3    def show
+    4:     @category = Category.find(params[:id])
+    5:     @products = @category.products.order(created_at: :desc)
+    6    end
+    7
+    8    def index
+    9:     @categories = Category.order(id: :desc).all
+   10    end
+   11
+   12    def new
+   13:     @category = Category.new
+   14    end
+   15
+   16    def create
+   17:     @category = Category.new(category_params)
+   18
+   19:     if @category.save
+   20:       redirect_to [:admin, :categories], notice: 'Category created!'
+   21      else
+   22        render :new
+   ..
+   24    end
+   25
+   26:   def category_params
+   27:     params.require(:category).permit(
+   28        :name
+   29      )
+
+/home/travis/lighthouse/jungle_rails/app/controllers/admin/products_controller.rb:
+   31        :name,
+   32        :description,
+   33:       :category_id,
+   34        :quantity,
+   35        :image,
+
+/home/travis/lighthouse/jungle_rails/app/models/category.rb:
+    1: class Category < ActiveRecord::Base
+    2
+    3    has_many :products
+
+/home/travis/lighthouse/jungle_rails/app/models/product.rb:
+    4    mount_uploader :image, ProductImageUploader
+    5
+    6:   belongs_to :category
+    7
+    8    validates :name, presence: true
+    9    validates :price, presence: true
+   10    validates :quantity, presence: true
+   11:   validates :category, presence: true
+   12
+   13  end
+
+/home/travis/lighthouse/jungle_rails/app/views/admin/categories/_category.erb:
+    1  <tr>
+    2      <td>
+    3:         <h4><%= category.name %></h4>
+    4      </td>
+    5  </tr>
+
+/home/travis/lighthouse/jungle_rails/app/views/admin/categories/index.html.erb:
+    4      </header>
+    5      <div class="well">
+    6:         <%= link_to '+ New Category', [:new, :admin, :category], class: 'btn btn-info' %>
+    7      </div>
+    8      <div class="panel panel-default products">
+    .
+   10              <thead>
+   11                  <tr>
+   12:                     <th colspan="2">Category</th>
+   13                  </tr>
+   14              </thead>
+
+/home/travis/lighthouse/jungle_rails/app/views/admin/categories/new.html.erb:
+    1  <section class="admin-products-new">
+    2      <header class="page-header">
+    3:         <h1>Admin &raquo; New Category</h1>
+    4      </header>
+    5      <div class="well">
+    .
+    8      <div class="row">
+    9          <div class="col-sm-6 col-sm-offset-1">
+   10:             <%= form_for [:admin, @category] do |form| %>
+   11                  <% if form.object.errors.any? %>
+   12                      <div class="alert alert-danger">
+   ..
+   25                                  <%= form.text_field :name, class: 'form-control' %>
+   26                          </div>
+   27:                         <%= form.submit 'Create Category', class: 'btn btn-primary' %>
+   28                              <% end %>
+   29          </div>
+
+/home/travis/lighthouse/jungle_rails/app/views/admin/products/_product.html.erb:
+    9    </td>
+   10    <td>
+   11:     <%= product.category.name %>
+   12    </td>
+   13    <td>
+
+/home/travis/lighthouse/jungle_rails/app/views/admin/products/index.html.erb:
+   11                  <tr>
+   12                      <th colspan="2">Product</th>
+   13:                     <th>Category</th>
+   14                      <th>Price</th>
+   15                      <th>Qty Remaining</th>
+
+/home/travis/lighthouse/jungle_rails/app/views/admin/products/new.html.erb:
+   35
+   36          <div class="form-group">
+   37:           <%= form.label :category %>
+   38:           <%= form.select :category_id, options_from_collection_for_select(Category.all.order(:name), :id, :name), { include_blank: true }, class: 'form-control' %>
+   39          </div>
+   40
+
+/home/travis/lighthouse/jungle_rails/app/views/categories/show.html.erb:
+    3    <header class="page-header">
+    4      <h1>
+    5:       <%= @category.name %>
+    6        <small>(<%= pluralize @products.size, 'product' %>)</small>
+    7      </h1>
+
+/home/travis/lighthouse/jungle_rails/app/views/layouts/_top_nav.html.erb:
+   21            </a>
+   22                      <ul class="dropdown-menu">
+   23:                         <% Category.all.each do |category| %>
+   24                              <li>
+   25:                                 <%= link_to category.name, category %>
+   26                              </li>
+   27                              <% end %>
+
+/home/travis/lighthouse/jungle_rails/app/views/products/show.html.erb:
+    2
+    3    <header class="page-header">
+    4:     <h1><%= link_to @product.category.name, @product.category %> &raquo; <%= @product.name %></h1>
+    5    </header>
+    6
+
+36 matches across 13 files
+
+
+Searching 40 files for "category_params"
+
+/home/travis/lighthouse/jungle_rails/app/controllers/admin/categories_controller.rb:
+   15
+   16    def create
+   17:     @category = Category.new(category_params)
+   18
+   19      if @category.save
+   ..
+   24    end
+   25
+   26:   def category_params
+   27      params.require(:category).permit(
+   28        :name
+
+2 matches in 1 file
+
+
+Searching 40 files for "params"
+
+/home/travis/lighthouse/jungle_rails/app/controllers/carts_controller.rb:
+    5
+    6    def add_item
+    7:     product_id = params[:product_id].to_s
+    8
+    9      item = cart[product_id] || { "quantity" => 0 }
+   ..
+   16
+   17    def remove_item
+   18:     product_id = params[:product_id].to_s
+   19
+   20      item = cart[product_id] || { "quantity" => 1 }
+
+/home/travis/lighthouse/jungle_rails/app/controllers/orders_controller.rb:
+    2
+    3    def show
+    4:     @order = Order.find(params[:id])
+    5    end
+    6
+    .
+   29    def perform_stripe_charge
+   30      Stripe::Charge.create(
+   31:       source:      params[:stripeToken],
+   32        amount:      cart_total, # in cents
+   33        description: "Khurram Virani's Jungle Order",
+   ..
+   38    def create_order(stripe_charge)
+   39      order = Order.new(
+   40:       email: params[:stripeEmail],
+   41        total_cents: cart_total,
+   42        stripe_charge_id: stripe_charge.id, # returned by stripe
+
+/home/travis/lighthouse/jungle_rails/app/controllers/products_controller.rb:
+    6
+    7    def show
+    8:     @product = Product.find params[:id]
+    9    end
+   10
+
+/home/travis/lighthouse/jungle_rails/app/controllers/admin/categories_controller.rb:
+    2
+    3    def show
+    4:     @category = Category.find(params[:id])
+    5      @products = @category.products.order(created_at: :desc)
+    6    end
+    .
+   15
+   16    def create
+   17:     @category = Category.new(category_params)
+   18
+   19      if @category.save
+   ..
+   24    end
+   25
+   26:   def category_params
+   27:     params.require(:category).permit(
+   28        :name
+   29      )
+
+/home/travis/lighthouse/jungle_rails/app/controllers/admin/products_controller.rb:
+   10
+   11    def create
+   12:     @product = Product.new(product_params)
+   13
+   14      if @product.save
+   ..
+   20
+   21    def destroy
+   22:     @product = Product.find params[:id]
+   23      @product.destroy
+   24      redirect_to [:admin, :products], notice: 'Product deleted!'
+   ..
+   27    private
+   28
+   29:   def product_params
+   30:     params.require(:product).permit(
+   31        :name,
+   32        :description,
+
+14 matches across 5 files
+
+
+Searching 40 files for "category_params"
+
+/home/travis/lighthouse/jungle_rails/app/controllers/admin/categories_controller.rb:
+   15
+   16    def create
+   17:     @category = Category.new(category_params)
+   18
+   19      if @category.save
+   ..
+   24    end
+   25
+   26:   def category_params
+   27      params.require(:category).permit(
+   28        :name
+
+2 matches in 1 file
+
+
+Searching 40 files for ""category_params""
+
+0 matches
+
+Searching 40 files for "category_params"
+
+/home/travis/lighthouse/jungle_rails/app/controllers/admin/categories_controller.rb:
+   15
+   16    def create
+   17:     @category = Category.new(category_params)
+   18
+   19      if @category.save
+   ..
+   24    end
+   25
+   26:   def category_params
+   27      params.require(:category).permit(
+   28        :name
+
+2 matches in 1 file
+
+
+Searching 40 files for "my cart"
+
+/home/travis/lighthouse/jungle_rails/app/views/carts/show.html.erb:
+    2
+    3    <header class="page-header">
+    4:     <h1>My Cart</h1>
+    5    </header>
+    6
+
+/home/travis/lighthouse/jungle_rails/app/views/layouts/_top_nav.html.erb:
+   50                  <li>
+   51                      <%= link_to cart_path do %>
+   52:                         <%= fa_icon "shopping-cart" %> My Cart (
+   53                             <%= cart.size %>)
+   54                                  <% end %>
+
+2 matches across 2 files
