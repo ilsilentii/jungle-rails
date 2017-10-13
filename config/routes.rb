@@ -1,12 +1,16 @@
 Rails.application.routes.draw do
 
-  resources :users
-  resources :users
+  resources :reviews, only: [:edit, :destroy, :update]
   resources :users
   root to: 'products#index'
 
   resources :products, only: [:index, :show]
   resources :categories, only: [:show]
+
+
+  resources :products do
+    resources :reviews, only: [:create]
+  end
 
   resource :cart, only: [:show] do
     put    :add_item
