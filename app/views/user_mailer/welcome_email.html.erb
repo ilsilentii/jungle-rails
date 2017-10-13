@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+
+<body>
+    <h1>Welcome to Jungle.com, <%= @user.email %></h1>
+    <p>
+        You have successfully purchased this product!
+        <br>
+    </p>
+    <tbody>
+        <% @cart_total = 0 %>
+            <% cart.each do |product_id, details| %>
+                <%= render 'item', product_id: product_id, details: details %>
+                    <% end %>
+    </tbody>
+    <p>Thanks for purchasing this item and have a great day!</p>
+</body>
+
+</html>
