@@ -12,11 +12,13 @@
         <%= @user.last_name %>.
             <br>
     </p>
-    <p>
-        To login to the site, just follow this link:
-        <%= @url %>.
-    </p>
-    <p>Thanks for joining and have a great day!</p>
+    <tbody>
+        <% @cart_total = 0 %>
+            <% cart.each do |product_id, details| %>
+                <%= render 'item', product_id: product_id, details: details %>
+                    <% end %>
+    </tbody>
+    <p>Thanks for purchasing this item and have a great day!</p>
 </body>
 
 </html>
