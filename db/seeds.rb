@@ -139,6 +139,8 @@ User.create!({
   password:"a"
   })
 
+
+
 #Review
 
 Review.create!({
@@ -157,15 +159,15 @@ Review.create!({
 Review.create!({
   product_id: 11,
   user_id: 1,
-  description: "This product sucks. i give it 4 out 5",
+  description: "I mean, its ok. but really i could do with something else",
   rating:4
   })
 
 Review.create!({
   product_id: 12,
   user_id: 1,
-  description: "This product sucks. i give it 1 out 5",
-  rating:1
+  description: "A really good product, and a poor review because the review is so short",
+  rating:3
   })
 
 Review.create!({
@@ -177,8 +179,8 @@ Review.create!({
 Review.create!({
   product_id: 12,
   user_id: 1,
-  description: "This product sucks. i give it 1 out 5",
-  rating:1
+  description: "What. Are you kidding me. this product is awesome! 7/5 stars",
+  rating:7
   })
 
 puts "DONE!"

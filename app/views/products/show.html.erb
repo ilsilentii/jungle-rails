@@ -29,41 +29,62 @@
             </div>
         </div>
     </article>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th width="10%">Rating</th>
-                <th>Review</th>
-            </tr>
-        </thead>
-        <tfoot>
-            <% @reviews.each do |eachreview| %>
-                <% user = User.find(eachreview.user_id) %>
-                    <%= user.first_name%>
-                        <%= user.last_name %>
-                            <%= eachreview.rating %>
-                                <%= eachreview.description %>
-                                    <%= eachreview.created_at %>
-                                        <% end %>
-        </tfoot>
+    <tfoot>
+        <% @reviews.each do |eachreview| %>
+            <% user = User.find(eachreview.user_id) %>
+                <table class="table table-bordered">
+                    <tr>
+                        <th class="tg-yw4l" colspan="2" style="background-color:#7c889b ">
+                            <%= user.first_name%>
+                                <%= user.last_name %>
+                                    <div style="float:right;">
+                                        <%= eachreview.created_at %>
+                                    </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td style="width:10%; background-color: #cbcfd6">Rating</td>
+                        <td style="background-color: #cbcfd6" ">Review</td>
+                    </tr>
+                    <tr>
+                        <td class="tg-yw4l " style="background-color: #f9f9f9 ">
+                            <%= eachreview.rating %> / 5
+                        </td>
+                        <td class="tg-yw4l " style="background-color: #f9f9f9 ">
+                            <%= eachreview.description %>
+                        </td>
+                    </tr>
+                </table>
+                <% end %>
+    </tfoot>
     </table>
-    <h2>Add a review<h2>
-      <%= form_for [@product, @product.reviews.build] do |f| %>
-        <p>
-          <%= f.label :rating %><br>
-          <%= f.select (:rating) do %>
-            <% [['1', 1], ['2', 2],['3', 3], ['4', 4], ['5', 5]].each do |rating| %>
-              <%= content_tag(:option, rating.first, value: rating.last) %>
-            <% end %>
-          <% end %>
-        </p>
-        <p>
-          <%= f.label :description %><br>
-          <%= f.text_area :description %>
-        </p>
-        <p>
-          <%= f.submit %>
-        </p>
-      <% end %>
-    </div>
+    <table class="table table-bordered ">
+                    <tr>
+                        <th class="tg-yw4l " colspan="2 " style="background-color:#7c889b ">
+                            <h3 style="font-weight: bold ">Add a review</h3>
+
+                        </th>
+                    </tr>
+                    <tr>
+                        <td style="width:10%; background-color: #cbcfd6 ">Rating</td>
+                        <td style="background-color: #cbcfd6 " ">Review</td>
+                    </tr>
+                    <%= form_for [@product, @product.reviews.build] do |f| %>
+                        <tr>
+                            <td class="tg-yw4l " style="background-color: #f9f9f9 ">
+                                <%= f.select (:rating) do %>
+                                    <% [['1', 1], ['2', 2],['3', 3], ['4', 4], ['5', 5]].each do |rating| %>
+                                        <%= content_tag(:option, rating.first, value: rating.last) %>
+                                            <% end %>
+                                                <% end %>
+                            </td>
+                            <td class="tg-yw4l " style="background-color: #f9f9f9 ">
+                                <%= f.text_area :description %>
+                                    <div style="float:right;line-height: 3.5em;">
+                                        <%= f.submit %>
+                                    </div>
+                            </td>
+                        </tr>
+                        <% end %>
+                </table>
 </section>
