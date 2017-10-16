@@ -40,7 +40,7 @@ cat1.products.create!({
   description: Faker::Hipster.paragraph(4),
   image: open_asset('apparel1.jpg'),
   quantity: 10,
-  price: 64.99
+  price: 64.99,
 })
 
 cat1.products.create!({
@@ -132,5 +132,55 @@ cat3.products.create!({
   price: 2_483.75
 })
 
+User.create!({
+  first_name:"Travis",
+  last_name:"vandermeer",
+  email:"travis@outlook.com",
+  password:"a"
+  })
+
+
+
+#Review
+
+Review.create!({
+  product_id: 10,
+  user_id: 1,
+  description: "This is the best product I ever had!!!",
+  rating:5
+  })
+
+Review.create!({
+  product_id: 11,
+  user_id: 1,
+  description: "This product sucks. i give it 4 out 5",
+  rating:4
+  })
+Review.create!({
+  product_id: 11,
+  user_id: 1,
+  description: "I mean, its ok. but really i could do with something else",
+  rating:4
+  })
+
+Review.create!({
+  product_id: 12,
+  user_id: 1,
+  description: "A really good product, and a poor review because the review is so short",
+  rating:3
+  })
+
+Review.create!({
+  product_id: 12,
+  user_id: 1,
+  description: "This product sucks. i give it 1 out 5",
+  rating:1
+  })
+Review.create!({
+  product_id: 12,
+  user_id: 1,
+  description: "What. Are you kidding me. this product is awesome! 7/5 stars",
+  rating:7
+  })
 
 puts "DONE!"

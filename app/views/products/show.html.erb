@@ -1,31 +1,90 @@
 <section class="products-show">
+    <header class="page-header">
+        <h1><%= link_to @product.category.name, @product.category %> &raquo; <%= @product.name %></h1>
+    </header>
+    <article class="product-detail">
+        <div class="row">
+            <div class="col-sm-4">
+                <%= image_tag @product.image.url, class: 'main-img' %>
+            </div>
+            <div class="col-sm-8">
+                <dl class="dl-horizontal">
+                    <dt>Name</dt>
+                    <dd>
+                        <%= @product.name %>
+                    </dd>
+                    <dt>Description</dt>
+                    <dd>
+                        <%= @product.description %>
+                    </dd>
+                    <dt>Quantity</dt>
+                    <dd>
+                        <%= @product.quantity %>
+                    </dd>
+                    <dt>Price</dt>
+                    <dd>
+                        <%= @product.price %>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </article>
+    <tfoot>
+        <% @reviews.each do |eachreview| %>
+            <% user = User.find(eachreview.user_id) %>
+                <table class="table table-bordered">
+                    <tr>
+                        <th class="tg-yw4l" colspan="2" style="background-color:#7c889b ">
+                            <%= user.first_name%>
+                                <%= user.last_name %>
+                                    <div style="float:right;">
+                                        <%= eachreview.created_at %>
+                                    </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td style="width:10%; background-color: #cbcfd6">Rating</td>
+                        <td style="background-color: #cbcfd6" ">Review</td>
+                    </tr>
+                    <tr>
+                        <td class="tg-yw4l " style="background-color: #f9f9f9 ">
+                            <%= eachreview.rating %> / 5
+                        </td>
+                        <td class="tg-yw4l " style="background-color: #f9f9f9 ">
+                            <%= eachreview.description %>
+                        </td>
+                    </tr>
+                </table>
+                <% end %>
+    </tfoot>
+    </table>
+    <table class="table table-bordered ">
+                    <tr>
+                        <th class="tg-yw4l " colspan="2 " style="background-color:#7c889b ">
+                            <h3 style="font-weight: bold ">Add a review</h3>
 
-  <header class="page-header">
-    <h1><%= link_to @product.category.name, @product.category %> &raquo; <%= @product.name %></h1>
-  </header>
-
-  <article class="product-detail">
-
-    <div class="row">
-
-      <div class="col-sm-4">
-        <%= image_tag @product.image.url, class: 'main-img' %>
-      </div>
-
-      <div class="col-sm-8">
-        <dl class="dl-horizontal">
-          <dt>Name</dt>
-          <dd><%= @product.name %></dd>
-          <dt>Description</dt>
-          <dd><%= @product.description %></dd>
-          <dt>Quantity</dt>
-          <dd><%= @product.quantity %></dd>
-          <dt>Price</dt>
-          <dd><%= @product.price %></dd>
-        </dl>
-      </div>
-    </div>
-
-  </article>
-
+                        </th>
+                    </tr>
+                    <tr>
+                        <td style="width:10%; background-color: #cbcfd6 ">Rating</td>
+                        <td style="background-color: #cbcfd6 " ">Review</td>
+                    </tr>
+                    <%= form_for [@product, @product.reviews.build] do |f| %>
+                        <tr>
+                            <td class="tg-yw4l " style="background-color: #f9f9f9 ">
+                                <%= f.select (:rating) do %>
+                                    <% [['1', 1], ['2', 2],['3', 3], ['4', 4], ['5', 5]].each do |rating| %>
+                                        <%= content_tag(:option, rating.first, value: rating.last) %>
+                                            <% end %>
+                                                <% end %>
+                            </td>
+                            <td class="tg-yw4l " style="background-color: #f9f9f9 ">
+                                <%= f.text_area :description %>
+                                    <div style="float:right;line-height: 3.5em;">
+                                        <%= f.submit %>
+                                    </div>
+                            </td>
+                        </tr>
+                        <% end %>
+                </table>
 </section>
