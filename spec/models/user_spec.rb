@@ -4,8 +4,8 @@ RSpec.describe User, type: :model do
   describe 'Validations' do
 
     it 'Has all the valid parameters to create a user' do
-      @user = User.new(first_name: 'John',
-                       last_name: 'Snow',
+      @user = User.new(first_name: 'firstname',
+                       last_name: 'lastname',
                        email: 'test@test.com',
                        password: 'password',
                        password_confirmation: 'password')
@@ -13,8 +13,8 @@ RSpec.describe User, type: :model do
     end
 
     it 'When Passwords dont match' do
-      @user = User.new(first_name: 'John',
-                       last_name: 'Snow',
+      @user = User.new(first_name: 'firstname',
+                       last_name: 'lastname',
                        email: 'test@test.com',
                        password: 'password',
                        password_confirmation: '123456')
@@ -23,14 +23,14 @@ RSpec.describe User, type: :model do
     end
 
     it 'testing case sensitivity for email' do
-      @user1 = User.new(first_name: 'John',
-                        last_name: 'Snow',
+      @user1 = User.new(first_name: 'firstname',
+                        last_name: 'lastname',
                         email: 'test@test.com',
                         password: 'password',
                         password_confirmation: 'password')
       @user1.save
-      @user2 = User.new(first_name: 'John',
-                        last_name: 'Snow',
+      @user2 = User.new(first_name: 'firstname',
+                        last_name: 'lastname',
                         email: 'TEST@TEST.com',
                         password: 'password',
                         password_confirmation: 'password')
@@ -39,7 +39,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'When First name is not included' do
-      @user = User.new(last_name: 'Snow',
+      @user = User.new(last_name: 'lastname',
                        email: 'test@test.com',
                        password: 'password',
                        password_confirmation: 'password')
@@ -48,7 +48,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'When last name is not included' do
-      @user = User.new(first_name: 'Snow',
+      @user = User.new(first_name: 'lastname',
                        email: 'test@test.com',
                        password: 'password',
                        password_confirmation: 'password')
@@ -57,7 +57,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'When email is not included' do
-      @user = User.new(last_name: 'Snow',
+      @user = User.new(last_name: 'lastname',
                        first_name: 'test@test.com',
                        password: 'password',
                        password_confirmation: 'password')
@@ -66,8 +66,8 @@ RSpec.describe User, type: :model do
     end
 
     it 'Password does not meet minimum length' do
-      @user = User.new(first_name: 'John',
-                       last_name: 'Snow',
+      @user = User.new(first_name: 'firstname',
+                       last_name: 'lastname',
                        email: 'test@test.com',
                        password: '123',
                        password_confirmation: '123')
@@ -79,8 +79,8 @@ RSpec.describe User, type: :model do
   describe '.authenticate_with_credentials' do
 
     it 'when there are white spaces with the email' do
-      @user = User.new(first_name: 'John',
-                       last_name: 'Snow',
+      @user = User.new(first_name: 'firstname',
+                       last_name: 'lastname',
                        email: 'test@test.com',
                        password: 'asdasdasd',
                        password_confirmation: 'asdasdasd')
@@ -90,8 +90,8 @@ RSpec.describe User, type: :model do
     end
 
     it 'when there are different cases with the email' do
-      @user = User.new(first_name: 'John',
-                       last_name: 'Snow',
+      @user = User.new(first_name: 'firstname',
+                       last_name: 'lastname',
                        email: 'test@test.com',
                        password: 'asdasdasd',
                        password_confirmation: 'asdasdasd')
